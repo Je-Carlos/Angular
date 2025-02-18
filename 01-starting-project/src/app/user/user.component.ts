@@ -1,4 +1,12 @@
-import { Component, computed, Input, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  EventEmitter,
+  Input,
+  input,
+  output,
+  Output,
+} from '@angular/core';
 // import { DUMMY_USERS } from '../dummy-users';
 
 // const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
@@ -10,10 +18,13 @@ import { Component, computed, Input, input } from '@angular/core';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
+  @Input({ required: true }) id!: string;
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string;
   // avatar = input.required<string>();
   // name = input.required<string>();
+  @Output() select = new EventEmitter();
+  // select = output<string>();
 
   // imagePath = computed(() => {
   //   return 'assets/users/' + this.avatar();
@@ -22,5 +33,7 @@ export class UserComponent {
     return 'assets/users/' + this.avatar;
   }
 
-  onSelectUser() {}
+  onSelectUser() {
+    this.select.emit(this.id);
+  }
 }
